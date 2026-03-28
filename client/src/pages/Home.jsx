@@ -17,13 +17,46 @@ const highlights = [
 ]
 
 const testimonials = [
-  { name: 'Priya Kulkarni', class: 'Class 10 SSC', text: 'Raj sir\'s teaching made Maths so easy to understand. I scored 94% in boards!', stars: 5 },
-  { name: 'Rohan Deshmukh', class: '12th Science – JEE', text: 'Sanket sir\'s Physics notes and problem solving approach is unmatched. Cleared JEE Mains!', stars: 5 },
-  { name: 'Sneha Patil', class: '12th Commerce', text: 'Tatkare sir explains Accounts and Economics with real-world examples.', stars: 5 },
+  { name: 'Priya Kulkarni', class: 'Class 10 SSC', text: 'The teaching made Maths so easy to understand. I scored 94% in boards!', stars: 5 },
+  { name: 'Rohan Deshmukh', class: '12th Science – JEE', text: 'The Physics notes and problem solving approach is unmatched. Cleared JEE Mains!', stars: 5 },
+  { name: 'Sneha Patil', class: '12th Commerce', text: 'Accounts and Economics explained with real-world examples. Best commerce classes in Bhandup.', stars: 5 },
   { name: 'Amit Shah', class: 'Class 9', text: 'Best foundation classes. Concepts are super clear now!', stars: 4 },
   { name: 'Neha Joshi', class: '12th Science', text: 'Doubt solving sessions helped me boost confidence.', stars: 5 },
   { name: 'Kunal More', class: 'Class 10', text: 'Weekly tests and analysis really improved my score.', stars: 4 },
 ];
+
+const batches = [
+  {
+    label: '8th – 10th',
+    sub: 'SSC Board',
+    desc: 'All core subjects covered with board exam focus and regular assessments.',
+  },
+  {
+    label: '11th – 12th',
+    sub: 'Science (JEE / NEET / CET)',
+    desc: 'Physics, Chemistry, Maths & Biology — competitive exam focused curriculum.',
+  },
+  {
+    label: '11th – 12th',
+    sub: 'Commerce',
+    desc: 'Accounts, Economics & OCM with board exam pattern coverage.',
+  },
+  {
+    label: '1st Year',
+    sub: 'Engineering',
+    desc: 'Core engineering subjects with university exam focus.',
+  },
+  {
+    label: 'Degree Courses',
+    sub: 'Science Stream',
+    desc: 'BSc and science degree subjects with semester-wise preparation.',
+  },
+  {
+    label: 'Degree Courses',
+    sub: 'Commerce Stream',
+    desc: 'BCom and commerce degree subjects with university syllabus alignment.',
+  },
+]
 
 export default function Home() {
   const sectionRefs = useRef([])
@@ -143,91 +176,90 @@ export default function Home() {
             <div className="divider-flame w-32 mx-auto mt-5" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { label: '8th – 10th', sub: 'SSC Board', desc: 'All subjects | Raj Rane Sir & Sanket More Sir' },
-              { label: '11th – 12th', sub: 'Science (JEE / NEET / CET)', desc: 'Physics, Chemistry, Maths, Biology | Raj Rane Sir & Sanket More Sir' },
-              { label: '11th – 12th', sub: 'Commerce', desc: 'Accounts, Economics, OCM | Ajinkya Tatkare Sir' },
-              { label: 'Engineering', sub: '1st Year', desc: 'Core engineering subjects' },
-              { label: 'Degree Courses Science', sub: 'Degree Courses', desc: 'Commerce degree ', soon: false },
-              { label: 'Degree Courses Commerce', sub: 'Degree Courses', desc: 'Science degree ', soon: false },
-            ].map((b, i) => (
-              <div key={i} ref={addRef} className="animate-on-scroll t-card rounded-2xl overflow-hidden card-hover" style={{ transitionDelay: `${i * 100}ms` }}>
+            {batches.map((b, i) => (
+              <Link
+                key={i}
+                to="/courses"
+                ref={addRef}
+                className="animate-on-scroll t-card rounded-2xl overflow-hidden card-hover group block"
+                style={{ transitionDelay: `${i * 100}ms`, textDecoration: 'none' }}
+              >
                 <div className="h-1.5 bg-orange-500" />
                 <div className="p-6">
-                  {b.soon && <span className="inline-block px-2 py-0.5 t-badge text-xs rounded-full font-display mb-3">Coming Soon</span>}
                   <div className="font-display font-extrabold text-2xl mb-0.5" style={{ color: 'var(--text-primary)' }}>{b.label}</div>
                   <div className="font-display font-semibold text-sm text-orange-500 mb-2">{b.sub}</div>
-                  <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{b.desc}</p>
+                  <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>{b.desc}</p>
+                  {/* Arrow that appears on hover */}
+                  <div className="flex items-center gap-1 text-orange-500 text-sm font-display font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    View Details <ArrowRight size={14} />
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
+          </div>
+
+          {/* View all courses CTA below grid */}
+          <div ref={addRef} className="animate-on-scroll text-center mt-10">
+            <Link
+              to="/courses"
+              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-orange-400 text-orange-500 font-display font-semibold rounded-xl hover:bg-orange-500 hover:text-white transition-all duration-200"
+            >
+              View All Courses <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
+      {/* ── TESTIMONIALS MARQUEE ── */}
       <section className="py-20 t-bg-secondary overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4">
-    
-        <div className="text-center mb-14">
-          <h2 className="font-display font-bold text-4xl mb-3">
-            What Students <span className="text-flame">Say</span>
-          </h2>
-        <div className="divider-flame w-32 mx-auto mt-5" />
-      </div>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
+              What Students <span className="text-flame">Say</span>
+            </h2>
+            <div className="divider-flame w-32 mx-auto mt-5" />
+          </div>
 
-    {/* Marquee Wrapper */}
-    <div className="relative w-full overflow-hidden">
-      
-      <div className="flex gap-6 animate-marquee">
-        {[...testimonials, ...testimonials].map((t, i) => (
-          <div
-            key={i}
-            className="min-w-[300px] t-card rounded-2xl p-6 card-hover"
-          >
-            <div className="flex gap-1 mb-3">
-              {[...Array(t.stars)].map((_, j) => (
-                <Star key={j} size={14} fill="#f97316" className="text-orange-500" />
+          <div className="relative w-full overflow-hidden">
+            <div className="flex gap-6 animate-marquee">
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div
+                  key={i}
+                  className="min-w-[300px] t-card rounded-2xl p-6 card-hover"
+                >
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(t.stars)].map((_, j) => (
+                      <Star key={j} size={14} fill="#f97316" className="text-orange-500" />
+                    ))}
+                  </div>
+                  <p className="text-sm italic mb-4" style={{ color: 'var(--text-secondary)' }}>
+                    "{t.text}"
+                  </p>
+                  <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '12px' }}>
+                    <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>{t.name}</div>
+                    <div className="text-orange-500 text-xs">{t.class}</div>
+                  </div>
+                </div>
               ))}
             </div>
-
-            <p className="text-sm italic mb-4">
-              "{t.text}"
-            </p>
-
-            <div className="pt-3 border-t">
-              <div className="font-semibold">{t.name}</div>
-              <div className="text-orange-500 text-xs">{t.class}</div>
-            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
-    </div>
-  </div>
-</section>
-{/* ── TESTIMONIALS ── */}
-      {/* GOOGLE REVIEWS */}
-<section className="py-20 t-bg-secondary">
-  <div className="max-w-6xl mx-auto px-4">
-
-    <div className="text-center mb-14">
-      <h2 className="font-display font-bold text-4xl mb-3">
-        What Students <span className="text-flame">Say</span>
-      </h2>
-      <div className="divider-flame w-32 mx-auto mt-5" />
-    </div>
-
-    <div className="t-card rounded-2xl p-6">
-      {/* ⚠️ This is wrong currently */}
-      {/* You cannot use elfsight script inside iframe */}
-
-      {/* Correct usage below 👇 */}
-      <div className="elfsight-app-a008f3bc-8980-436a-b49b-ab39e8514618" data-elfsight-app-lazy></div>
-    </div>
-
-  </div>
-</section>
+      {/* ── GOOGLE REVIEWS (Elfsight) ── */}
+      <section className="py-20 t-bg-secondary">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
+              Google <span className="text-flame">Reviews</span>
+            </h2>
+            <div className="divider-flame w-32 mx-auto mt-5" />
+          </div>
+          <div className="t-card rounded-2xl p-6">
+            <div className="elfsight-app-a008f3bc-8980-436a-b49b-ab39e8514618" data-elfsight-app-lazy></div>
+          </div>
+        </div>
+      </section>
 
       {/* ── CTA BANNER ── */}
       <section className="py-16 t-bg-primary">

@@ -311,7 +311,7 @@ export default function Results() {
               { name: "Dr. Chintan Dhuri", score: "MBBS", exam: "Medical", extra: "SKR Ayurvedic Medical College, Nagpur", img: "/images/history3.png" },
               { name: "Dr. Rutuja Jadhav", score: "MBBS", exam: "Medical", extra: "Orel State Medical University, Russia", img: "/images/history4.png" },
               { name: "Dr. Vaishnavi Jadhav", score: "MBBS", exam: "Medical", extra: "Orel State Medical University, Russia", img: "/images/history5.png" },
-              { name: "Swayam Kamble", score: "92%", exam: "Science", extra: "99%ile CET • 95% JEE", img: "/images/history6.png" },
+              { name: "Swayam Kamble", score: "92%", exam: "Science", extra: "99%ile CET • 95% JEE • B.Tech DJ Sanghvi", img: "/images/history6.png" },
               { name: "Shreya Tate", score: "93.17%", exam: "Commerce", extra: "MCC", img: "/images/history7.png" },
               { name: "Harshali Rane", score: "94.80%", exam: "SSC", extra: "St. Xavier", img: "/images/history8.png" },
             ].map((student, i) => (
