@@ -223,7 +223,7 @@ export default function Home() {
       {/* You cannot use elfsight script inside iframe */}
 
       {/* Correct usage below 👇 */}
-      <div class="elfsight-app-a008f3bc-8980-436a-b49b-ab39e8514618" data-elfsight-app-lazy></div>
+      <div className="elfsight-app-a008f3bc-8980-436a-b49b-ab39e8514618" data-elfsight-app-lazy></div>
     </div>
 
   </div>

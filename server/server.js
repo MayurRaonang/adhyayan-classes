@@ -11,6 +11,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'https://adhyayan-classes-client.vercel.app',
+    'https://adhyayan-classes.vercel.app/',
   ],
   methods: ['GET', 'POST'],
 }));

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Phone, Mail, MapPin, MessageCircle, Send, CheckCircle, AlertCircle } from 'lucide-react'
 
 const batches = ['8th – 10th SSC', '11th – 12th Science (JEE/NEET/CET)', '11th – 12th Commerce', '1st Year Engineering', 'Commerce Degree Courses', 'Science Degree Courses', 'Other / Not sure']
-const API_URL = 'http://localhost:5000/api/enquiry'
+const API_URL = 'https://adhyayan-classes.onrender.com/api/enquiry'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', batch: '', message: '' })
