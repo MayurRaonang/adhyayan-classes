@@ -10,8 +10,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://adhyayan-classes-client.vercel.app',
-    'https://adhyayan-classes.vercel.app/',
+    'https://adhyayan-classes.vercel.app',
+    'https://adhyayanclasses.in', 
+    'https://www.adhyayanclasses.in',
   ],
   methods: ['GET', 'POST'],
 }));
