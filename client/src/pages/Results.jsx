@@ -42,59 +42,34 @@ function TopperCarousel() {
   const next = () => setCurrent((current + 1) % toppers.length);
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', maxWidth: '680px', margin: '0 auto' }}>
+    // FIX 1 — was a flex row with fixed gap that overflowed on mobile
+    // Now: column on mobile (arrows below card), row on sm+ screens
+    <div style={{ maxWidth: '680px', margin: '0 auto', width: '100%' }}>
 
-      {/* Left Arrow */}
-      <button
-        onClick={prev}
-        style={{
-          flexShrink: 0,
-          width: '48px', height: '48px',
-          borderRadius: '50%',
-          border: '2px solid #f97316',
-          background: 'transparent',        // ✅ was 'white' — now theme-safe
-          color: '#f97316',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer',
-          boxShadow: '0 2px 10px rgba(249,115,22,0.2)',
-          transition: 'all 0.2s ease',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = '#f97316';
-          e.currentTarget.style.color = 'white';
-          e.currentTarget.style.transform = 'scale(1.1)';
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = 'transparent'; // ✅ was 'white'
-          e.currentTarget.style.color = '#f97316';
-          e.currentTarget.style.transform = 'scale(1)';
-        }}
-        aria-label="Previous"
-      >
-        <ChevronLeft size={22} />
-      </button>
-
-      {/* Card — t-card handles bg in both light & dark mode */}
+      {/* Card first on mobile */}
       <div className="t-card" style={{
-        flex: 1,
         borderRadius: '24px',
-        padding: '48px 40px',
+        padding: '32px 24px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
         boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
         border: '1px solid rgba(249,115,22,0.15)',
+        width: '100%',
+        boxSizing: 'border-box',
       }}>
 
-        {/* 240px Circular Image */}
+        {/* FIX 2 — Image was 240px fixed. Now clamps: min 140px, preferred 40vw, max 220px */}
         <div style={{
-          width: '240px', height: '240px',
+          width: 'clamp(140px, 40vw, 220px)',
+          height: 'clamp(140px, 40vw, 220px)',
           borderRadius: '50%',
           overflow: 'hidden',
           border: '4px solid #f97316',
           marginBottom: '24px',
           boxShadow: '0 6px 28px rgba(249,115,22,0.3)',
+          flexShrink: 0,
         }}>
           <img
             src={t.img}
@@ -106,7 +81,7 @@ function TopperCarousel() {
         {/* Name */}
         <h3 className="font-display" style={{
           fontWeight: 800,
-          fontSize: '1.5rem',
+          fontSize: 'clamp(1.1rem, 4vw, 1.5rem)',  // FIX 3 — was fixed 1.5rem
           color: 'var(--text-primary)',
           margin: '0 0 10px',
         }}>
@@ -115,7 +90,7 @@ function TopperCarousel() {
 
         {/* Score */}
         <div style={{
-          fontSize: '2.6rem',
+          fontSize: 'clamp(1.8rem, 6vw, 2.6rem)',  // FIX 3 — was fixed 2.6rem
           fontWeight: 900,
           color: '#f97316',
           lineHeight: 1,
@@ -164,35 +139,69 @@ function TopperCarousel() {
         </div>
       </div>
 
-      {/* Right Arrow */}
-      <button
-        onClick={next}
-        style={{
-          flexShrink: 0,
-          width: '48px', height: '48px',
-          borderRadius: '50%',
-          border: '2px solid #f97316',
-          background: 'transparent',        // ✅ was 'white'
-          color: '#f97316',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer',
-          boxShadow: '0 2px 10px rgba(249,115,22,0.2)',
-          transition: 'all 0.2s ease',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = '#f97316';
-          e.currentTarget.style.color = 'white';
-          e.currentTarget.style.transform = 'scale(1.1)';
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = 'transparent'; // ✅ was 'white'
-          e.currentTarget.style.color = '#f97316';
-          e.currentTarget.style.transform = 'scale(1)';
-        }}
-        aria-label="Next"
-      >
-        <ChevronRight size={22} />
-      </button>
+      {/* FIX 1 — Arrows below card on mobile, side-by-side centered */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '16px',
+        marginTop: '20px',
+      }}>
+        <button
+          onClick={prev}
+          style={{
+            width: '48px', height: '48px',
+            borderRadius: '50%',
+            border: '2px solid #f97316',
+            background: 'transparent',
+            color: '#f97316',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 2px 10px rgba(249,115,22,0.2)',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = '#f97316';
+            e.currentTarget.style.color = 'white';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = '#f97316';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          aria-label="Previous"
+        >
+          <ChevronLeft size={22} />
+        </button>
+
+        <button
+          onClick={next}
+          style={{
+            width: '48px', height: '48px',
+            borderRadius: '50%',
+            border: '2px solid #f97316',
+            background: 'transparent',
+            color: '#f97316',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 2px 10px rgba(249,115,22,0.2)',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = '#f97316';
+            e.currentTarget.style.color = 'white';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = '#f97316';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          aria-label="Next"
+        >
+          <ChevronRight size={22} />
+        </button>
+      </div>
 
     </div>
   );
@@ -209,6 +218,7 @@ export default function Results() {
 
   return (
     <div className="pt-20">
+
       {/* HERO */}
       <section className="py-20 relative overflow-hidden t-hero">
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
@@ -246,6 +256,7 @@ export default function Results() {
 
       {/* TOP PERFORMERS 2025 */}
       <section className="py-20 t-bg-secondary">
+        {/* FIX 4 — added px-4 so carousel has padding on mobile, no edge overflow */}
         <div className="max-w-5xl mx-auto px-4 text-center">
           <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
             Top <span className="text-flame">Performers 2025</span>
@@ -257,258 +268,136 @@ export default function Results() {
         </div>
       </section>
 
-      
-
       {/* GLIMPSES OF OUR HISTORY */}
-<section className="py-20 t-bg-secondary">
-  <div className="max-w-6xl mx-auto px-4">
-
-    {/* Heading */}
-    <div className="text-center mb-6">
-      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 t-badge">
-        <Trophy size={14} className="text-orange-500" />
-        <span className="text-sm font-display font-medium" style={{ color: 'var(--orange-badge-text)' }}>Legacy of Excellence</span>
-      </div>
-      <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
-        Glimpses of Our <span className="text-flame">History</span>
-      </h2>
-      <div className="divider-flame w-32 mx-auto mt-4 mb-6" />
-    </div>
-
-    {/* Yellow highlight banner */}
-    <div style={{
-      background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
-      borderRadius: '16px',
-      padding: '20px 32px',
-      marginBottom: '48px',
-      maxWidth: '640px',
-      margin: '0 auto 48px',
-      boxShadow: '0 4px 20px rgba(249,115,22,0.3)',
-    }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {['Delivering 100% result since last 15 years', 'Crafting professionals every year'].map((point, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '8px', height: '8px', borderRadius: '50%',
-              background: 'white', flexShrink: 0
-            }} />
-            <span style={{ color: 'white', fontWeight: 700, fontSize: '1rem', fontFamily: 'var(--font-display, inherit)' }}>
-              {point}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Student Cards Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {[
-  {
-    name: "Mayur Raonang",
-    score: "99%ile",
-    exam: "MHT-CET",
-    extra: "94.4% HSC Science • B.Tech SPIT",
-    img: "/images/history1.png"
-  },
-  {
-    name: "Amritansh Gaud",
-    score: "93%",
-    exam: "HSC Commerce",
-    extra: "SK Somaiya College",
-    img: "/images/history2.png"
-  },
-  {
-    name: "Dr. Chintan Dhuri",
-    score: "MBBS",
-    exam: "Medical",
-    extra: "SKR Ayurvedic Medical College, Nagpur",
-    img: "/images/history3.png"
-  },
-  {
-    name: "Dr. Rutuja Jadhav",
-    score: "MBBS",
-    exam: "Medical",
-    extra: "Orel State Medical University, Russia",
-    img: "/images/history4.png"
-  },
-  {
-    name: "Dr. Vaishnavi Jadhav",
-    score: "MBBS",
-    exam: "Medical",
-    extra: "Orel State Medical University, Russia",
-    img: "/images/history5.png"
-  },
-
-  // ✅ NEW 3 (from image)
-  {
-    name: "Swayam Kamble",
-    score: "92%",
-    exam: "Science",
-    extra: "99%ile CET • 95% JEE",
-    img: "/images/history6.png"
-  },
-  {
-    name: "Shreya Tate",
-    score: "93.17%",
-    exam: "Commerce",
-    extra: "MCC",
-    img: "/images/history7.png"
-  },
-  {
-    name: "Harshali Rane",
-    score: "94.80%",
-    exam: "SSC",
-    extra: "St. Xavier",
-    img: "/images/history8.png"
-  }
-].map((student, i) => (
-        <div
-          key={i}
-          ref={addRef}
-          className="animate-on-scroll t-card rounded-2xl overflow-hidden card-hover"
-          style={{
-            transitionDelay: `${i * 80}ms`,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '32px 24px',
-            textAlign: 'center',
-          }}
-        >
-          {/* Circular Photo */}
-          <div style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '3px solid #f97316',
-            marginBottom: '16px',
-            boxShadow: '0 4px 16px rgba(249,115,22,0.2)',
-            flexShrink: 0,
-          }}>
-            <img
-              src={student.img}
-              alt={student.name}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
-            />
-          </div>
-
-          {/* Name */}
-          <h3 className="font-display font-bold text-lg mb-2" style={{ color: 'var(--text-primary)' }}>
-            {student.name}
-          </h3>
-
-          {/* Score Badge */}
-          <div style={{
-            background: 'rgba(249,115,22,0.1)',
-            border: '1px solid rgba(249,115,22,0.3)',
-            borderRadius: '999px',
-            padding: '4px 16px',
-            marginBottom: '6px',
-          }}>
-            <span style={{ color: '#f97316', fontWeight: 800, fontSize: '1.2rem' }}>
-              {student.score}
-            </span>
-            <span style={{ color: '#f97316', fontWeight: 600, fontSize: '0.8rem', marginLeft: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              {student.exam}
-            </span>
-          </div>
-
-          {/* Extra Info */}
-          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            {student.extra}
-          </p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-            <section className="py-20 t-bg-primary">
+      <section className="py-20 t-bg-secondary">
         <div className="max-w-6xl mx-auto px-4">
 
-          {/* Heading */}
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 t-badge">
+              <Trophy size={14} className="text-orange-500" />
+              <span className="text-sm font-display font-medium" style={{ color: 'var(--orange-badge-text)' }}>Legacy of Excellence</span>
+            </div>
+            <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
+              Glimpses of Our <span className="text-flame">History</span>
+            </h2>
+            <div className="divider-flame w-32 mx-auto mt-4 mb-6" />
+          </div>
+
+          {/* Orange highlight banner */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+            borderRadius: '16px',
+            padding: '20px 32px',
+            marginBottom: '48px',
+            maxWidth: '640px',
+            margin: '0 auto 48px',
+            boxShadow: '0 4px 20px rgba(249,115,22,0.3)',
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {['Delivering 100% result since last 15 years', 'Crafting professionals every year'].map((point, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'white', flexShrink: 0 }} />
+                  <span style={{ color: 'white', fontWeight: 700, fontSize: '1rem' }}>{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* History Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { name: "Mayur Raonang", score: "99%ile", exam: "MHT-CET", extra: "94.4% HSC Science • B.Tech SPIT", img: "/images/history1.png" },
+              { name: "Amritansh Gaud", score: "93%", exam: "HSC Commerce", extra: "SK Somaiya College", img: "/images/history2.png" },
+              { name: "Dr. Chintan Dhuri", score: "MBBS", exam: "Medical", extra: "SKR Ayurvedic Medical College, Nagpur", img: "/images/history3.png" },
+              { name: "Dr. Rutuja Jadhav", score: "MBBS", exam: "Medical", extra: "Orel State Medical University, Russia", img: "/images/history4.png" },
+              { name: "Dr. Vaishnavi Jadhav", score: "MBBS", exam: "Medical", extra: "Orel State Medical University, Russia", img: "/images/history5.png" },
+              { name: "Swayam Kamble", score: "92%", exam: "Science", extra: "99%ile CET • 95% JEE", img: "/images/history6.png" },
+              { name: "Shreya Tate", score: "93.17%", exam: "Commerce", extra: "MCC", img: "/images/history7.png" },
+              { name: "Harshali Rane", score: "94.80%", exam: "SSC", extra: "St. Xavier", img: "/images/history8.png" },
+            ].map((student, i) => (
+              <div
+                key={i}
+                ref={addRef}
+                className="animate-on-scroll t-card rounded-2xl overflow-hidden card-hover"
+                style={{ transitionDelay: `${i * 80}ms`, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 24px', textAlign: 'center' }}
+              >
+                {/* FIX 4 — History images: was fixed 200px. Now clamp so they shrink on small screens */}
+                <div style={{
+                  width: 'clamp(120px, 35vw, 180px)',
+                  height: 'clamp(120px, 35vw, 180px)',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '3px solid #f97316',
+                  marginBottom: '16px',
+                  boxShadow: '0 4px 16px rgba(249,115,22,0.2)',
+                  flexShrink: 0,
+                }}>
+                  <img src={student.img} alt={student.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                </div>
+
+                <h3 className="font-display font-bold text-lg mb-2" style={{ color: 'var(--text-primary)' }}>{student.name}</h3>
+
+                <div style={{ background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.3)', borderRadius: '999px', padding: '4px 16px', marginBottom: '6px' }}>
+                  <span style={{ color: '#f97316', fontWeight: 800, fontSize: '1.2rem' }}>{student.score}</span>
+                  <span style={{ color: '#f97316', fontWeight: 600, fontSize: '0.8rem', marginLeft: '6px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{student.exam}</span>
+                </div>
+
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{student.extra}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ALUMNI */}
+      <section className="py-20 t-bg-primary">
+        <div className="max-w-6xl mx-auto px-4">
+
           <div className="text-center mb-14">
             <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
               Our <span className="text-flame">Alumni</span>
             </h2>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              Our students excelling across diverse professional fields
-            </p>
+            <p style={{ color: 'var(--text-secondary)' }}>Our students excelling across diverse professional fields</p>
             <div className="divider-flame w-32 mx-auto mt-5" />
           </div>
 
-          {/* Grid 2 rows × 3 cols */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-11">
-
-            {/* Alumni Card */}
             {[
-  {
-    name: "Siddhi Sakpal",
-    role: "B. Pharma\nSandoz India",
-    img: "/images/alumni1.png"
-  },
-  {
-    name: "Kamini Mestry",
-    role: "PhD (Reproductive Diagnosis) (NIPGT)",
-    img: "/images/alumni2.png"
-  },
-  {
-    name: "Guari Angane",
-    role: "Territory Manager at Mahindra & Mahindra",
-    img: "/images/alumni3.png"
-  },
-  {
-    name: "Aditya Rasam",
-    role: "Chartered Accountant (CA)",
-    img: "/images/alumni4.png"
-  },
-  {
-    name: "Ashish Umape",
-    role: "BLS LLB\nHigh Court Mumbai",
-    img: "/images/alumni5.png"
-  },
-  {
-    name: "Omkar Mitbavkar",
-    role: "Stock Market Advisor",
-    img: "/images/alumni6.png"
-  }
-].map((alumni, i) => (
+              { name: "Siddhi Sakpal", role: "B. Pharma\nSandoz India", img: "/images/alumni1.png" },
+              { name: "Kamini Mestry", role: "PhD (Reproductive Diagnosis) (NIPGT)", img: "/images/alumni2.png" },
+              { name: "Guari Angane", role: "Territory Manager at Mahindra & Mahindra", img: "/images/alumni3.png" },
+              { name: "Aditya Rasam", role: "Chartered Accountant (CA)", img: "/images/alumni4.png" },
+              { name: "Ashish Umape", role: "BLS LLB\nHigh Court Mumbai", img: "/images/alumni5.png" },
+              { name: "Omkar Mitbavkar", role: "Stock Market Advisor", img: "/images/alumni6.png" },
+            ].map((alumni, i) => (
               <div key={i} className="t-card rounded-2xl overflow-hidden card-hover">
 
-                {/* Image */}
                 <div className="flex justify-center items-center py-6">
+                  {/* FIX 4 — Alumni images: was fixed 200px, now clamp */}
                   <div style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '3px solid #f97316',
-            marginBottom: '16px',
-            boxShadow: '0 4px 16px rgba(249,115,22,0.2)',
-            flexShrink: 0,
-          }}>
+                    width: 'clamp(120px, 35vw, 180px)',
+                    height: 'clamp(120px, 35vw, 180px)',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    border: '3px solid #f97316',
+                    boxShadow: '0 4px 16px rgba(249,115,22,0.2)',
+                    flexShrink: 0,
+                  }}>
                     <img
                       src={alumni.img}
                       alt={alumni.name}
-                      className="w-39 h-39 rounded-full object-cover"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
                     />
                   </div>
                 </div>
 
-                {/* Info */}
                 <div className="p-5 text-center">
-                  <h3 className="font-display font-bold text-lg" style={{ color: 'var(--text-primary)' }}>
-                    {alumni.name}
-                  </h3>
-                  <p className="text-sm text-orange-500 font-semibold">
-                    {alumni.role}
-                  </p>
+                  <h3 className="font-display font-bold text-lg" style={{ color: 'var(--text-primary)' }}>{alumni.name}</h3>
+                  <p className="text-sm text-orange-500 font-semibold" style={{ whiteSpace: 'pre-line' }}>{alumni.role}</p>
                 </div>
 
               </div>
             ))}
-
           </div>
         </div>
       </section>
@@ -527,6 +416,7 @@ export default function Results() {
           </div>
         </div>
       </section>
+
     </div>
   )
 }
