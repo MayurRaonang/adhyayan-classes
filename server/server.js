@@ -119,8 +119,8 @@ function buildAutoReplyHTML({ name, batch }) {
         <p>We look forward to welcoming you to the Adhyayan family!</p>
 
         <div class="contact-box">
-          <p>📞 Call / WhatsApp: <a href="tel:+919999999999">+91 99999 99999</a></p>
-          <p style="margin-top:8px;">📧 Email: <a href="mailto:info@adhyayanclasses.in">info@adhyayanclasses.in</a></p>
+          <p>📞 Call / WhatsApp: <a href="https://wa.me/919768359324?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes">+91 9768359324</a></p>
+          <p style="margin-top:8px;">📧 Email: <a href="mailto:adhyayanclasses.78@gmail.com">adhyayanclasses.78@gmail.com</a></p>
         </div>
       </div>
       <div class="footer">

@@ -1,7 +1,7 @@
 export default function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/918097169318?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes"
+      href="https://wa.me/919768359324?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes"
       target="_blank"
       rel="noopener noreferrer"
       className="whatsapp-float"
