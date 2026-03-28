@@ -1,40 +1,20 @@
 require('dotenv').config();
 const express = require('express');
-const nodemailer = require('nodemailer');
 const cors = require('cors');
+const { Resend } = require('resend');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// ── Middleware ──────────────────────────────────────────────
 app.use(cors({
   origin: [
-  'http://localhost:5173',
-  'https://adhyayanclasses.in',
-  'https://www.adhyayanclasses.in',
-  'https://adhyayan-classes-client.vercel.app'  // your Vercel URL
-],
+    'http://localhost:5173',
+    'https://adhyayan-classes-client.vercel.app',
+  ],
   methods: ['GET', 'POST'],
 }));
 app.use(express.json());
-
-// ── Nodemailer Transporter ──────────────────────────────────
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
-
-// Verify transporter on startup
-transporter.verify((error) => {
-  if (error) {
-    console.error('❌ Email transporter error:', error.message);
-  } else {
-    console.log('✅ Email transporter is ready');
-  }
-});
 
 // ── Helper: Build HTML email ────────────────────────────────
 function buildEmailHTML({ name, phone, email, batch, message }) {
@@ -154,45 +134,42 @@ function buildAutoReplyHTML({ name, batch }) {
 app.post('/api/enquiry', async (req, res) => {
   const { name, phone, email, batch, message } = req.body;
 
-  // Basic validation
   if (!name || !phone || !batch) {
     return res.status(400).json({ success: false, message: 'Name, phone, and batch are required.' });
   }
 
   try {
-    // 1. Send enquiry email to institute
-    await transporter.sendMail({
-      from: `"Adhyayan Classes Website" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: `📚 New Enquiry: ${name} — ${batch}`,
+    // Send enquiry to institute
+    await resend.emails.send({
+      from: 'Adhyayan Classes <onboarding@resend.dev>',
+      to: process.env.INSTITUTE_EMAIL,
+      subject: `New Enquiry: ${name} — ${batch}`,
       html: buildEmailHTML({ name, phone, email, batch, message }),
     });
 
-    // 2. Send auto-reply to student (only if they provided email)
+    // Auto-reply to student
     if (email) {
-      await transporter.sendMail({
-        from: `"Adhyayan Classes" <${process.env.EMAIL_USER}>`,
+      await resend.emails.send({
+        from: 'Adhyayan Classes <onboarding@resend.dev>',
         to: email,
-        subject: `Thank you for your enquiry — Adhyayan Classes`,
+        subject: 'Thank you for your enquiry — Adhyayan Classes',
         html: buildAutoReplyHTML({ name, batch }),
       });
     }
 
-    console.log(`✅ Enquiry received from ${name} (${phone}) for ${batch}`);
+    console.log(`✅ Enquiry from ${name} email ${email} (${phone}) for ${batch}`);
     return res.status(200).json({ success: true, message: 'Enquiry submitted successfully!' });
 
   } catch (error) {
     console.error('❌ Failed to send email:', error.message);
-    return res.status(500).json({ success: false, message: 'Failed to send enquiry. Please try again or contact us directly.' });
+    return res.status(500).json({ success: false, message: 'Failed to send enquiry.' });
   }
 });
 
-// ── Health check ────────────────────────────────────────────
 app.get('/', (req, res) => {
   res.json({ status: 'Adhyayan Classes server is running ✅' });
 });
 
-// ── Start Server ────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
