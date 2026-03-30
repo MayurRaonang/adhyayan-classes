@@ -55,7 +55,7 @@ export default function Contact() {
               <div ref={addRef} className="animate-on-scroll">
                 <h2 className="font-display font-bold text-2xl mb-6" style={{ color: 'var(--text-primary)' }}>Contact Information</h2>
                 {[
-                  { icon: Phone, label: 'Phone', value: '+91 9768359324', href: "https://wa.me/919768359324?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes" },
+                  { icon: Phone, label: 'Phone', value: '+91 97683 59324', href: "https://wa.me/919768359324?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes" },
                   { icon: Mail, label: 'Email', value: 'adhyayanclasses.78@gmail.com', href: 'mailto:adhyayanclasses.78@gmail.com' },
                   { icon: MapPin, label: 'Address', value: 'Adhyayan Classes, Beside Oxford School, Near Shivaji Talao, Bhandup (west), Mumbai 400078, Maharashtra', href: 'https://share.google/uZwnE2N3O5HJEDCSc' },
                 ].map((c, i) => (
@@ -69,7 +69,7 @@ export default function Contact() {
                     </div>
                   </a>
                 ))}
-                <a href="https://wa.me/918097169318?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/919768359324?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes" target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl px-6 py-4 font-display font-semibold transition-all hover:scale-105 mt-2">
                   <MessageCircle size={20} /> Chat on WhatsApp
                 </a>

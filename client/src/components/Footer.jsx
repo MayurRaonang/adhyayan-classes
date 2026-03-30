@@ -22,7 +22,7 @@ export default function Footer() {
               Empowering students from SSC to Degree with quality education, dedicated faculty, and result-oriented teaching.
             </p>
             <div className="flex gap-3 mt-5">
-              <a href="https://www.instagram.com/adhyayanclassesofficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="w-9 h-9 rounded-full bg-orange-500/20 flex items-center justify-center hover:bg-orange-500 transition-colors group">
+              <a href="https://www.instagram.com/adhyayanclasses.official?igsh=MTkybXdiM3NmM2owcQ==" className="w-9 h-9 rounded-full bg-orange-500/20 flex items-center justify-center hover:bg-orange-500 transition-colors group">
                 <Instagram size={16} className="text-orange-400 group-hover:text-white" />
               </a>
               {/* <a href="#" className="w-9 h-9 rounded-full bg-orange-500/20 flex items-center justify-center hover:bg-red-600 transition-colors group">
@@ -73,7 +73,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <Phone size={15} className="text-orange-500 shrink-0" />
-                <a href="https://wa.me/918097169318?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes" className="hover:text-orange-400 transition-colors">+91 8097169318</a>
+                <a href="https://wa.me/919768359324?text=Hello%2C%20I%20want%20to%20enquire%20about%20Adhyayan%20Classes" className="hover:text-orange-400 transition-colors">+91 97683 59324</a>
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <Mail size={15} className="text-orange-500 shrink-0" />
