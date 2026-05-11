@@ -24,7 +24,20 @@ export default function Contact() {
     try {
       const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) })
       const data = await res.json()
-      if (data.success) setSubmitted(true)
+      if (data.success) {
+
+        // Google Ads conversion tracking
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-18142203006/8yGkCJ3cxKkcEP6Y8MpD',
+            value: 1.0,
+            currency: 'INR',
+          });
+        }
+
+        setSubmitted(true)
+
+      }
       else setError(data.message || 'Something went wrong. Please try again.')
     } catch { setError('Could not connect to server. Please WhatsApp us directly.') }
     finally { setLoading(false) }
