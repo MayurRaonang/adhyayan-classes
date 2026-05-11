@@ -53,11 +53,27 @@ export default function Footer() {
 
           {/* Batches */}
           <div>
-            <h4 className="font-display font-semibold text-orange-400 mb-4 tracking-wide uppercase text-sm">Batches</h4>
+            <h4 className="font-display font-semibold text-orange-400 mb-4 tracking-wide uppercase text-sm">
+              Batches
+            </h4>
+
             <ul className="space-y-2">
-              {['8th – 10th SSC', '11th – 12th Science', '11th – 12th Commerce', '1st Year Engineering', 'Science Degree', 'Commerce Degree'].map(b => (
-                <li key={b} className="text-gray-400 text-sm flex items-center gap-2">
-                  <span className="text-orange-500">›</span> {b}
+              {[
+                { name: '8th – 10th SSC', link: '/courses#ssc' },
+                { name: '11th – 12th Science', link: '/courses#science' },
+                { name: '11th – 12th Commerce', link: '/courses#commerce' },
+                { name: '1st Year Engineering', link: '/courses#engineering' },
+                { name: 'Science Degree', link: '/courses#degree-science' },
+                { name: 'Commerce Degree', link: '/courses#degree-commerce' },
+              ].map((b) => (
+                <li key={b.name}>
+                  <Link
+                    to={b.link}
+                    className="text-gray-400 text-sm flex items-center gap-2 hover:text-orange-500 transition"
+                  >
+                    <span className="text-orange-500">›</span>
+                    {b.name}
+                  </Link>
                 </li>
               ))}
             </ul>

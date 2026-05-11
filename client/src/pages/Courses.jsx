@@ -7,8 +7,8 @@ const batches = [
   { id: 'science', icon: FlaskConical, label: '11th – 12th Science', sub: 'JEE / NEET / CET / Boards', subjects: ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Electronics'], features: ['JEE / NEET / CET focused syllabus', 'Exhaustive Test Series', 'Regular Parent Teacher interaction', 'Chapter-wise notes', 'Rank improvement strategy'], timing: 'Morning & Evening batches', available: true },
   { id: 'commerce', icon: TrendingUp, label: '11th – 12th Commerce', sub: 'Board Examination', subjects: ['Book keeping and Accountancy','Secretarial Practices', 'Economics', 'Organisation of Commerce (OCM)', 'Mathematics & Statistics', 'English', 'Marathi/Hindi'], features: ['Board exam pattern coverage', 'Practical accounts sessions', 'Regular Parent Teacher interaction', 'Study material provided', 'Regular revision classes'], timing: 'Morning & Evening batches', available: true },
   { id: 'engineering', icon: Cpu, label: 'Engineering', sub: 'All Engineering Streams', subjects: ['Engineering Mathematics', 'Basic Electrical Engineering', 'Engineering Mechanics', 'Programming Fundamentals', 'Engineering Drawing'], features: ['University exam focus', 'ATKT help & guidance', 'Practical support', 'Career Guidance', 'Online study material'], timing: 'Friday, Saturday, Sunday morning and evening', available: true },
-  { id: 'degree', icon: GraduationCap, label: 'Commerce Degree', sub: 'Other Degree Courses', subjects: ['B.Com – Bachelor of Commerce', 'BAF – Bachelor of Accounting and Finance', 'BBI – Bachelor of Banking and Insurance','BMS – Bachelor of Management Studies', 'BFM – Bachelor of Financial Markets'], features: ['University syllabus aligned', 'Semester-wise preparation', 'Practical guidance',], timing: 'Morning & Evening batches', available: true }, 
-  { id: 'degree', icon: GraduationCap, label: 'Science Degree', sub: 'Other Degree Courses', subjects: ['BSc Computer', 'Bsc IT', 'Other courses — finalizing soon'], features: ['University syllabus aligned', 'Semester-wise preparation', 'Career guidance'], timing: 'Evening batches', available: true },
+  { id: 'degree-commerce', icon: GraduationCap, label: 'Commerce Degree', sub: 'Other Degree Courses', subjects: ['B.Com – Bachelor of Commerce', 'BAF – Bachelor of Accounting and Finance', 'BBI – Bachelor of Banking and Insurance','BMS – Bachelor of Management Studies', 'BFM – Bachelor of Financial Markets'], features: ['University syllabus aligned', 'Semester-wise preparation', 'Practical guidance',], timing: 'Morning & Evening batches', available: true }, 
+  { id: 'degree-science', icon: GraduationCap, label: 'Science Degree', sub: 'Other Degree Courses', subjects: ['BSc Computer', 'Bsc IT', 'Other courses — finalizing soon'], features: ['University syllabus aligned', 'Semester-wise preparation', 'Career guidance'], timing: 'Evening batches', available: true },
 ]
 
 export default function Courses() {
@@ -39,7 +39,7 @@ export default function Courses() {
       <section className="pb-24 t-bg-primary">
         <div className="max-w-6xl mx-auto px-4 space-y-10">
           {batches.map((b, i) => (
-            <div key={b.id} ref={addRef} className="animate-on-scroll t-card rounded-3xl overflow-hidden card-hover" style={{ transitionDelay: `${i * 100}ms` }}>
+            <div key={b.id + i} id={b.id} ref={addRef} className="animate-on-scroll t-card rounded-3xl overflow-hidden card-hover" style={{ transitionDelay: `${i * 100}ms` }}>
               <div className="h-1.5 bg-orange-500" />
               <div className="p-8">
                 <div className="flex flex-col md:flex-row md:items-start gap-8">
