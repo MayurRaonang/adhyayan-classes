@@ -91,6 +91,15 @@ export default function Navbar() {
             >
               Enquire Now
             </Link>
+            <a
+  href="https://app.quillplus.in/login?ref=adhyayanclasses"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="ml-2 text-xs opacity-50 hover:opacity-80 transition-opacity"
+  style={{ color: 'var(--text-muted)' }}
+>
+  Login
+</a>
           </div>
 
           {/* Mobile: toggle + hamburger */}
@@ -141,6 +150,15 @@ export default function Navbar() {
           >
             Enquire Now
           </Link>
+          <a
+  href="https://app.quillplus.in/login?ref=adhyayanclasses"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="ml-2 text-xs opacity-50 hover:opacity-80 transition-opacity"
+  style={{ color: 'var(--text-muted)' }}
+>
+  Login
+</a>
         </div>
       </div>
     </nav>

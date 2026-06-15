@@ -211,7 +211,7 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIALS MARQUEE ── */}
-      <section className="py-20 t-bg-secondary overflow-hidden">
+      {/* <section className="py-20 t-bg-secondary overflow-hidden">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-14">
             <h2 className="font-display font-bold text-4xl mb-3" style={{ color: 'var(--text-primary)' }}>
@@ -244,7 +244,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── GOOGLE REVIEWS (Elfsight) ── */}
       <section className="py-20 t-bg-secondary">
