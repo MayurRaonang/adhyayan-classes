@@ -95,8 +95,7 @@ export default function Navbar() {
   href="https://app.quillplus.in/login?ref=adhyayanclasses"
   target="_blank"
   rel="noopener noreferrer"
-  className="ml-2 text-xs opacity-50 hover:opacity-80 transition-opacity"
-  style={{ color: 'var(--text-muted)' }}
+  className="px-5 py-2.5 border border-orange-500 text-orange-500 font-display font-semibold text-sm rounded-lg hover:bg-orange-500 hover:text-white transition-all"
 >
   Login
 </a>
@@ -128,7 +127,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`md:hidden transition-all duration-300 overflow-hidden ${open ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="t-nav px-4 py-4 flex flex-col gap-2" style={{ borderTop: '1px solid var(--border-light)' }}>
           {navLinks.map(link => (
             <Link
@@ -154,8 +153,7 @@ export default function Navbar() {
   href="https://app.quillplus.in/login?ref=adhyayanclasses"
   target="_blank"
   rel="noopener noreferrer"
-  className="ml-2 text-xs opacity-50 hover:opacity-80 transition-opacity"
-  style={{ color: 'var(--text-muted)' }}
+  className="px-5 py-2.5 border border-orange-500 text-orange-500 font-display font-semibold text-sm rounded-lg hover:bg-orange-500 hover:text-white transition-all"
 >
   Login
 </a>

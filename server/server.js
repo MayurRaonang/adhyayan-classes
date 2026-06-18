@@ -13,6 +13,7 @@ app.use(cors({
     'https://adhyayan-classes.vercel.app',
     'https://adhyayanclasses.in', 
     'https://www.adhyayanclasses.in',
+    'https://www.adhyayanclasses.co.in'
   ],
   methods: ['GET', 'POST'],
 }));
